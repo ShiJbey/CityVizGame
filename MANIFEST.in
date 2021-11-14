@@ -1,0 +1,3 @@
+include cityviz/assets/fonts/*
+include cityviz/assets/sounds/*
+include cityviz/assets/graphics/exports/*

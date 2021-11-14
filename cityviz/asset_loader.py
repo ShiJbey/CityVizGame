@@ -1,4 +1,4 @@
-from typing import Dict, Tuple, List, AnyStr
+from typing import Dict, Tuple, List
 from dataclasses import dataclass
 import pygame
 from pygame.surface import Surface
@@ -24,8 +24,8 @@ class ImageAssetLoader:
         for entry in self._asset_configs:
             surface: 'Surface' = pygame.image.load(entry.path).convert_alpha()
 
-            # if entry.color_key:
-            #     surface.set_colorkey(entry.color_key)
+            if entry.color_key:
+                surface.set_colorkey(entry.color_key)
 
             self._asset_dict[entry.name] = surface
 

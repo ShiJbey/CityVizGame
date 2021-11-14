@@ -1,13 +1,10 @@
 from typing import Tuple
 import pygame
-from pygame.locals import *
 from pygame_gui import UIManager
 import pygame_gui
 from pygame_gui.elements.ui_window import UIWindow
 from pygame_gui.elements.ui_text_box import UITextBox
 from talktown.person.person import Person
-from talktown.business import Business
-from talktown.residence import Residence
 from talktown.place import Building
 
 
@@ -31,7 +28,7 @@ class CharacterInfoWindow(UIWindow):
             f"name: {character.name}<br>"
             f"age: {round(character.age)}<br>"
             f"gender: {character.gender}<br>"
-            f"occupation: {character.occupation._position_name if character.occupation else 'None'}<br>",
+            f"occupation: {character.occupation if character.occupation else 'None'}<br>",
             pygame.Rect(0, 0, 320, 240),
             manager=ui_manager,
             container=self,
@@ -68,25 +65,34 @@ class BuildingInfoWindow(UIWindow):
     about a given building
     """
 
-    def __init__(self, building: 'Building') -> None:
-        pass
+    def __init__(self, building: 'Building', ui_manager: 'UIManager') -> None:
+        super().__init__(
+            pygame.Rect((10, 10), (320, 240)),
+            ui_manager,
+            window_display_title=building.building_type,
+            object_id=f'building_win')
+
+#
+# class BusinessInfoWindow(UIWindow):
+#     """
+#     Wraps a pygame_ui panel to display information
+#     about a given business
+#     """
+#
+#     def __init__(self, business: 'Business', sim: 'Simulation') -> None:
+#         pass
+#
+#
+# class ResidenceInfoWindow(UIWindow):
+#     """
+#     Wraps a pygame_ui panel to display information
+#     about a given residence
+#     """
+#
+#     def __init__(self, residence: 'Residence') -> None:
+#         pass
 
 
-class BusinessInfoWindow(UIWindow):
-    """
-    Wraps a pygame_ui panel to display information
-    about a given business
-    """
-
-    def __init__(self, business: 'Business') -> None:
-        pass
-
-
-class ResidenceInfoWindow(UIWindow):
-    """
-    Wraps a pygame_ui penel to display information
-    about a given residence
-    """
-
-    def __init__(self, residence: 'Residence') -> None:
-        pass
+def show_building_window(building: 'Building', ui_manager: UIManager) -> UIWindow:
+    """Creates a UIWindow for the given building"""
+    return BuildingInfoWindow(building, ui_manager)
